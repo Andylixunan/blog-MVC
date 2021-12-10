@@ -10,7 +10,7 @@ func main() {
 	router := routers.InitRouter()
 	//静态资源
 	router.Static("/static", "./static")
-	err := router.Run(":8081")
+	err := router.Run(":80")
 	if err != nil {
 		return
 	}
