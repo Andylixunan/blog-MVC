@@ -12,6 +12,6 @@ func main() {
 	router.Static("/static", "./static")
 	err := router.Run(":8081")
 	if err != nil {
-		return 
+		return
 	}
 }

@@ -3,8 +3,9 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"log"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var db *sql.DB
@@ -17,7 +18,7 @@ func InitMysql() {
 	}
 }
 
-func CreateTableWithUser(){
+func CreateTableWithUser() {
 	sqlString := `CREATE TABLE IF NOT EXISTS users(
         id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
         username VARCHAR(64),
@@ -28,14 +29,14 @@ func CreateTableWithUser(){
 	ModifyDB(sqlString)
 }
 
-func ModifyDB(sql string, args ...interface{}) (int64, error){
+func ModifyDB(sql string, args ...interface{}) (int64, error) {
 	result, err := db.Exec(sql, args...)
 	if err != nil {
 		log.Println(err)
 		return 0, err
 	}
 	count, err := result.RowsAffected()
-	if err != nil{
+	if err != nil {
 		log.Println(err)
 		return 0, err
 	}
