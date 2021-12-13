@@ -1,6 +1,5 @@
-$(document).ready(function () {
-    //注册
-    $("#register-form").validate({
+function registerValidate() {
+    $('#register-form').validate({
         rules: {
             username: {
                 required: true,
@@ -30,26 +29,27 @@ $(document).ready(function () {
                 rangelength: "密码必须是5-10位",
                 equalTo: "两次输入的密码必须相等"
             }
-        },
-        submitHandler: function (form) {
-            const urlStr = "/register";
-            // alert("urlStr:"+urlStr)
-            $(form).ajaxSubmit({
-                url: urlStr,
-                type: "post",
-                dataType: "json",
-                success: function (data, status) {
-                    alert("data:" + data.message)
-                    if (data.code == 1) {
-                        setTimeout(function () {
-                            window.location.href = "/login"
-                        }, 1000)
-                    }
-                },
-                err: function (data, status) {
-                    alert("err:" + data.message + ":" + status)
-                }
-            })
         }
-    });
-});
+    })
+}
+$(document).ready(function(){
+    var registerOptions = {
+        beforeSubmit: registerValidate,
+        url: "/register",
+        type: "post",
+        dataType: "json",
+        success: function (data) {
+            alert("data:" + data.message)
+            if (data.code == 1) {
+                setTimeout(function () {
+                    window.location.href = "/login"
+                }, 1000)
+            }
+        },
+        error: function (data, status) {
+            alert("err:" + data.message + ":" + status)
+        }
+    }
+    $('#register-form').ajaxForm(registerOptions);
+}
+);
