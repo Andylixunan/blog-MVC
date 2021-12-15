@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,10 +18,13 @@ func LoginPost(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 	fmt.Println("username:", username, ",password:", password)
-	id, err := models.QueryUserWithParam(username, utils.MD5(password))
-	if id > 0 && err == nil {
-		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "登录成功"})
-	} else {
+	_, err := models.QueryUserWithParam(username, utils.MD5(password))
+	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "登录失败"})
+	} else {
+		session := sessions.Default(c)
+		session.Set("login_user", username)
+		session.Save()
+		c.JSON(http.StatusOK, gin.H{"code": 1, "message": "登录成功"})
 	}
 }

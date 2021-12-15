@@ -68,7 +68,7 @@ $(document).ready(function(){
         dataType: "json",
         success: function (data) {
             alert("data:" + data.message + " code:" + data.code)
-            if (data.code == 0) {
+            if (data.code == 1) {
                 setTimeout(function () {
                     window.location.href = "/login"
                 }, 1000)
@@ -85,7 +85,7 @@ $(document).ready(function(){
         dataType: "json",
         success: function (data) {
             alert("data:" + data.message + " code:" + data.code)
-            if (data.code == 0) {
+            if (data.code == 1) {
                 setTimeout(function () {
                     window.location.href = "/"
                 }, 1000)

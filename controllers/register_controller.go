@@ -36,6 +36,6 @@ func RegisterPost(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "注册失败"})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "注册成功"})
+		c.JSON(http.StatusOK, gin.H{"code": 1, "message": "注册成功"})
 	}
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>注册</title>
+    <title>{{ .title }}</title>
     <link rel="stylesheet" type="text/css" href="/static/css/lib/login.css">
     <link rel="stylesheet" type="text/css" href="/static/css/blogsheet.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -12,16 +12,7 @@
 </head>
 <body>
 
-<div id="nav">
-    <div id="nav-login">
-        <ul>
-            <li><a href="/login">登录</a></li>
-            <li><a href="/register">注册</a></li>
-
-        </ul>
-
-    </div>
-</div>
+{{template "nav.html" .}}
 
 <div class="htmleaf-container">
     <div class="wrapper">
