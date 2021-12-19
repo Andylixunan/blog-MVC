@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -11,7 +10,7 @@ import (
 var db *sql.DB
 
 func InitMysql() {
-	fmt.Println("InitMysql....")
+	log.Println("InitMysql....")
 	if db == nil {
 		db, _ = sql.Open("mysql", "root:Andy990515!@tcp(127.0.0.1:3306)/micro_blog_gin?charset=utf8")
 		CreateTableWithUser()
