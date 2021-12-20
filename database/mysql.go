@@ -1,8 +1,8 @@
 package database
 
 import (
+	"blogweb_gin/utils"
 	"database/sql"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -10,7 +10,8 @@ import (
 var db *sql.DB
 
 func InitMysql() {
-	log.Println("InitMysql....")
+	// log.Println("InitMysql....")
+	utils.Logger.Println("InitMysql....")
 	if db == nil {
 		db, _ = sql.Open("mysql", "root:Andy990515!@tcp(127.0.0.1:3306)/micro_blog_gin?charset=utf8")
 		CreateTableWithUser()
@@ -31,12 +32,14 @@ func CreateTableWithUser() {
 func ModifyDB(sql string, args ...interface{}) (int64, error) {
 	result, err := db.Exec(sql, args...)
 	if err != nil {
-		log.Println(err)
+		// log.Println(err)
+		utils.Logger.Println(err)
 		return 0, err
 	}
 	count, err := result.RowsAffected()
 	if err != nil {
-		log.Println(err)
+		// log.Println(err)
+		utils.Logger.Println(err)
 		return 0, err
 	}
 	return count, nil

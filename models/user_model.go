@@ -2,8 +2,8 @@ package models
 
 import (
 	"blogweb_gin/database"
+	"blogweb_gin/utils"
 	"fmt"
-	"log"
 )
 
 type User struct {
@@ -26,7 +26,8 @@ func InsertUser(user User) (int64, error) {
 
 func QueryUserWithCondition(con string) (int, error) {
 	sqlStatement := fmt.Sprintf("select id from users %s", con)
-	log.Println(sqlStatement)
+	// log.Println(sqlStatement)
+	utils.Logger.Println(sqlStatement)
 	row := database.QueryRowDB(sqlStatement)
 	var id int
 	err := row.Scan(&id)

@@ -3,7 +3,6 @@ package controllers
 import (
 	"blogweb_gin/models"
 	"blogweb_gin/utils"
-	"log"
 	"net/http"
 	"time"
 
@@ -19,7 +18,8 @@ func RegisterPost(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 	repassword := c.PostForm("repassword")
-	log.Println(username, password, repassword)
+	// log.Println(username, password, repassword)
+	utils.Logger.Println(username, password, repassword)
 	id, err := models.QueryWithUsername(username)
 	if id != 0 && err == nil {
 		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "用户名已存在"})

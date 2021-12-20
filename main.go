@@ -3,6 +3,7 @@ package main
 import (
 	"blogweb_gin/database"
 	"blogweb_gin/routers"
+	_ "blogweb_gin/utils"
 )
 
 func main() {

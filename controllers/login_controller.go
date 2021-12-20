@@ -3,7 +3,6 @@ package controllers
 import (
 	"blogweb_gin/models"
 	"blogweb_gin/utils"
-	"log"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
@@ -17,7 +16,8 @@ func LoginGet(c *gin.Context) {
 func LoginPost(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
-	log.Println("username:", username, ",password:", password)
+	// log.Println("username:", username, ",password:", password)
+	utils.Logger.Println("username:", username, ",password:", password)
 	_, err := models.QueryUserWithParam(username, utils.MD5(password))
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "登录失败"})

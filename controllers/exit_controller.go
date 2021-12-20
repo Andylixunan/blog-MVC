@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"log"
+	"blogweb_gin/utils"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
@@ -10,7 +10,8 @@ import (
 
 func ExitGet(c *gin.Context) {
 	session := sessions.Default(c)
-	log.Printf("delete session: %v", session.Get("login_user"))
+	// log.Printf("delete session: %v", session.Get("login_user"))
+	utils.Logger.Printf("delete session: %v", session.Get("login_user"))
 	session.Delete("login_user")
 	session.Save()
 	c.Redirect(http.StatusFound, "/")

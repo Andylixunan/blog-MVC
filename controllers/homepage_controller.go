@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"log"
+	"blogweb_gin/utils"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
@@ -16,6 +16,7 @@ func HomeGet(c *gin.Context) {
 func GetSession(c *gin.Context) bool {
 	session := sessions.Default(c)
 	loginUser := session.Get("login_user")
-	log.Printf("login user: %v", loginUser)
+	// log.Printf("login user: %v", loginUser)
+	utils.Logger.Printf("login user: %v", loginUser)
 	return loginUser != nil
 }
