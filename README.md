@@ -1,4 +1,9 @@
-# micro-blog-gin
+# Blog Project - MVC
 
-### A naive implementation of a blog application 
-### MVC model with Tech Stack: Go Gin, MySQL, JQuery 
+### A blog application using MVC model
+
+### Backend: Golang (Gin as web framework)
+
+### Frontend: JQuery
+
+### Database: MySQL
