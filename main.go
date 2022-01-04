@@ -9,6 +9,7 @@ import (
 func main() {
 	database.InitMysql()
 	router := routers.InitRouter()
+	router.SetTrustedProxies(nil)
 	err := router.Run(":80")
 	if err != nil {
 		utils.Logger.Fatalf("failed to start server\n")

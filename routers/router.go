@@ -11,7 +11,7 @@ import (
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 	//静态资源
-	router.Static("/static", "../static")
+	router.Static("/static", "./static")
 	router.LoadHTMLGlob("views/*")
 	store := cookie.NewStore([]byte("secretKey"))
 	router.Use(sessions.Sessions("mysession", store))
