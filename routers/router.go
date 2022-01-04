@@ -10,6 +10,8 @@ import (
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
+	//静态资源
+	router.Static("/static", "../static")
 	router.LoadHTMLGlob("views/*")
 	store := cookie.NewStore([]byte("secretKey"))
 	router.Use(sessions.Sessions("mysession", store))
@@ -23,5 +25,10 @@ func InitRouter() *gin.Engine {
 	router.GET("/", controllers.HomeGet)
 	//退出
 	router.GET("/exit", controllers.ExitGet)
+	v1 := router.Group("/article")
+	{
+		v1.GET("/add", controllers.AddArticleGet)
+	}
+
 	return router
 }

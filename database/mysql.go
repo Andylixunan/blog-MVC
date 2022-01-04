@@ -10,11 +10,11 @@ import (
 var db *sql.DB
 
 func InitMysql() {
-	// log.Println("InitMysql....")
 	utils.Logger.Println("InitMysql....")
 	if db == nil {
 		db, _ = sql.Open("mysql", "root:Andy990515!@tcp(127.0.0.1:3306)/micro_blog_gin?charset=utf8")
 		CreateTableWithUser()
+		CreateTableWithArticle()
 	}
 }
 
@@ -29,16 +29,27 @@ func CreateTableWithUser() {
 	ModifyDB(sqlString)
 }
 
+func CreateTableWithArticle() {
+	sql := `create table if not exists article(
+        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        title varchar(30),
+        author varchar(20),
+        tags varchar(30),
+        short varchar(255),
+        content longtext,
+        createTime BIGINT
+        );`
+	ModifyDB(sql)
+}
+
 func ModifyDB(sql string, args ...interface{}) (int64, error) {
 	result, err := db.Exec(sql, args...)
 	if err != nil {
-		// log.Println(err)
 		utils.Logger.Println(err)
 		return 0, err
 	}
 	count, err := result.RowsAffected()
 	if err != nil {
-		// log.Println(err)
 		utils.Logger.Println(err)
 		return 0, err
 	}
