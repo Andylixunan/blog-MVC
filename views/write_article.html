@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>写文章</title>
+    <link href="/static/css/blogsheet.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/static/js/blog.js"></script>
+</head>
+<body>
+    {{template "nav.html" .}}
+    <div id="main">
+        <form id="write-art-form" method="post">
+            <div>标题</div>
+            <input type="text" placeholder="请输入标题" name="title" >
+            <div>标签</div>
+            <input type="text" placeholder="请输入标签" name="tags" >
+            <div>简介</div>
+            <textarea placeholder="请输入简介" name="short"></textarea>
+            <div>内容</div>
+            <textarea id="content" placeholder="请输入内容" name="content"></textarea>
+            <input id="write-article-id" hidden name="id" >
+            <br>
+            <button type="button" onclick="history.back()">返回</button>
+            <button type="submit" id="write-art-submit">提交</button>
+        </form>
+    </div>
+</body>

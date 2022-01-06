@@ -58,11 +58,40 @@ function loginValidate(){
     })
 }
 
+function articleValidate(){
+    $('#write-art-form').validate({
+        rules:{
+            title: "required",
+            tags: "required",
+            short: {
+                required: true,
+                minlength: 2
+            },
+            content: {
+                required: true,
+                minlength: 2
+            }
+        },
+        messages:{
+            title: "请输入标题",
+            tags: "请输入标签",
+            short: {
+                required: "请输入简介",
+                minlength: "简介内容最少两个字符"
+            },
+            content: {
+                required: "请输入文章内容",
+                minlength: "文章内容最少两个字符"
+            }
+        }
+    })
+}
+
 $(document).ready(function(){
     registerValidate();
     loginValidate();
+    articleValidate();
     var registerOptions = {
-        // beforeSubmit: registerValidate,
         url: "/register",
         type: "post",
         dataType: "json",
@@ -79,7 +108,6 @@ $(document).ready(function(){
         }
     }
     var loginOptions = {
-        // beforeSubmit: loginValidate,
         url: "/login",
         type: "post",
         dataType: "json",
@@ -95,8 +123,24 @@ $(document).ready(function(){
             alert("err:" + data.message + ":" + status)
         }
     }
-
+    var articleOptions = {
+        url: "/article/add",
+        type: "post",
+        dataType: "json",
+        success: function (data) {
+            alert("data:" + data.message + " code:" + data.code)
+            if (data.code == 1) {
+                setTimeout(function () {
+                    window.location.href = "/"
+                }, 1000)
+            }
+        },
+        error: function (data, status) {
+            alert("err:" + data.message + ":" + status)
+        }
+    }
     $('#register-form').ajaxForm(registerOptions);
     $('#login-form').ajaxForm(loginOptions);
+    $('#write-art-form').ajaxForm(articleOptions);
 }
 );

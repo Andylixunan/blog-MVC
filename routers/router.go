@@ -28,6 +28,7 @@ func InitRouter() *gin.Engine {
 	v1 := router.Group("/article")
 	{
 		v1.GET("/add", controllers.AddArticleGet)
+		v1.POST("/add", controllers.AddArticlePost)
 	}
 
 	return router

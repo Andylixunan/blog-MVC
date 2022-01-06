@@ -23,6 +23,7 @@ func AddArticlePost(c *gin.Context) {
 	utils.Logger.Printf("title:%s, tags:%s\n", title, tags)
 	article := models.Article{
 		Title:      title,
+		Tags:       tags,
 		Short:      short,
 		Content:    content,
 		Author:     "Andy",
