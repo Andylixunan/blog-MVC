@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+// 定义查询文章，每页显示的文章量
+const ArticleDisplayNum = 5
+
+// 日志工具
 var Logger *log.Logger
 
 func init() {
