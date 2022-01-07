@@ -36,7 +36,7 @@ func FindArticleWithPage(page int) ([]Article, error) {
 limit分页查询语句，
     语法：limit m，n
 
-    m代表从多少位开始获取，与id值无关
+    m代表从多少位开始获取 (index starts from 0)
     n代表获取多少条数据
 */
 
@@ -54,8 +54,14 @@ func QueryArticleWithCon(sql string) ([]Article, error) {
 	var articleList []Article
 	for rows.Next() {
 		var article Article
-		rows.Scan(&article.ID, &article.Title, &article.Tags, &article.Short, &article.Content, &article.Author, &article.CreateTime)
+		err := rows.Scan(&article.ID, &article.Title, &article.Tags, &article.Short, &article.Content, &article.Author, &article.CreateTime)
+		if err != nil {
+			utils.Logger.Fatal(err)
+		}
 		articleList = append(articleList, article)
+	}
+	if err := rows.Err(); err != nil {
+		utils.Logger.Fatal(err)
 	}
 	return articleList, nil
 }
