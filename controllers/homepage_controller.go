@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"blogweb_gin/models"
 	"blogweb_gin/utils"
 	"net/http"
 
@@ -10,7 +11,11 @@ import (
 
 func HomeGet(c *gin.Context) {
 	isLogin := GetSession(c)
-	c.HTML(http.StatusOK, "home.html", gin.H{"isLogin": isLogin})
+	page := 1
+	var artList []models.Article
+	artList, _ = models.FindArticleWithPage(page)
+	html := models.MakeHomeBlocks(artList, isLogin)
+	c.HTML(http.StatusOK, "home.html", gin.H{"isLogin": isLogin, "Content": html})
 }
 
 func GetSession(c *gin.Context) bool {
