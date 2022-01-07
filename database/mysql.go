@@ -3,6 +3,7 @@ package database
 import (
 	"blogweb_gin/utils"
 	"database/sql"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -12,7 +13,18 @@ var db *sql.DB
 func InitMysql() {
 	utils.Logger.Println("InitMysql....")
 	if db == nil {
-		db, _ = sql.Open("mysql", "root:Andy990515!@tcp(127.0.0.1:3306)/micro_blog_gin?charset=utf8")
+		var err error
+		db, err = sql.Open("mysql", "root:Andy990515!@tcp(127.0.0.1:3306)/micro_blog_gin?charset=utf8")
+		if err != nil {
+			utils.Logger.Fatal(err)
+		}
+		err = db.Ping()
+		if err != nil {
+			utils.Logger.Fatal(err)
+		}
+		db.SetConnMaxIdleTime(time.Minute * 2)
+		// db.SetMaxOpenConns(10)
+		db.SetMaxIdleConns(10)
 		CreateTableWithUser()
 		CreateTableWithArticle()
 	}
