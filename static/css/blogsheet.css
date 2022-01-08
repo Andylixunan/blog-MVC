@@ -63,7 +63,7 @@ body{
 #home-block-item > div.home-block-item-update{
     text-align: right;
 }
-.home-block-item-update>a{
+#home-block-item > div.home-block-item-update>a{
     background-color: #72BCB5;
     padding: 5px 20px;
     border-radius: 10px;
