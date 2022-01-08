@@ -2,8 +2,6 @@ package models
 
 import (
 	"blogweb_gin/utils"
-	"bytes"
-	"html/template"
 	"strconv"
 	"strings"
 )
@@ -34,8 +32,9 @@ type TagLink struct {
 }
 
 //----------首页显示内容---------
-func MakeHomeBlocks(articles []Article, isLogin bool) template.HTML {
-	htmlHome := ""
+
+func MakeHomeBlocks(articles []Article, isLogin bool) []HomeBlockParam {
+	homeBlocks := []HomeBlockParam{}
 	for _, article := range articles {
 		homeParam := HomeBlockParam{
 			Id:         article.ID,
@@ -50,17 +49,9 @@ func MakeHomeBlocks(articles []Article, isLogin bool) template.HTML {
 			CreateTime: utils.SwitchTimeStampToData(article.CreateTime),
 			Tags:       createTagsLinks(article.Tags),
 		}
-
-		//处理变量
-		//ParseFile解析该文件，用于插入变量
-		t, _ := template.ParseFiles("views/home_block.html")
-		buffer := bytes.Buffer{}
-		//就是将html文件里面的变量替换为传进去的数据
-		t.Execute(&buffer, homeParam)
-		htmlHome += buffer.String()
+		homeBlocks = append(homeBlocks, homeParam)
 	}
-	utils.Logger.Println("htmlHome-->", htmlHome)
-	return template.HTML(htmlHome)
+	return homeBlocks
 }
 
 //将tags字符串转化成首页模板所需要的数据结构

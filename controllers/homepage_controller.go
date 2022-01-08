@@ -12,10 +12,12 @@ import (
 func HomeGet(c *gin.Context) {
 	isLogin := GetSession(c)
 	page := 1
-	var artList []models.Article
-	artList, _ = models.FindArticleWithPage(page)
-	html := models.MakeHomeBlocks(artList, isLogin)
-	c.HTML(http.StatusOK, "home.html", gin.H{"isLogin": isLogin, "Content": html})
+	articleList, err := models.FindArticleWithPage(page)
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	homeBlocks := models.MakeHomeBlocks(articleList, isLogin)
+	c.HTML(http.StatusOK, "home.html", gin.H{"isLogin": isLogin, "homeBlocks": homeBlocks})
 }
 
 func GetSession(c *gin.Context) bool {
