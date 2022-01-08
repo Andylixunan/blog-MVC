@@ -31,6 +31,14 @@ type TagLink struct {
 	TagUrl  string
 }
 
+type HomeFooterPageCode struct {
+	HasPre   bool
+	HasNext  bool
+	ShowPage string
+	PreLink  string
+	NextLink string
+}
+
 //----------首页显示内容---------
 
 func MakeHomeBlocks(articles []Article, isLogin bool) []HomeBlockParam {
@@ -42,7 +50,7 @@ func MakeHomeBlocks(articles []Article, isLogin bool) []HomeBlockParam {
 			Short:      article.Short,
 			Content:    article.Content,
 			Author:     article.Author,
-			Link:       "/show/" + strconv.Itoa(article.ID),
+			Link:       "/article/show/" + strconv.Itoa(article.ID),
 			UpdateLink: "/article/update?id=" + strconv.Itoa(article.ID),
 			DeleteLink: "/article/delete?id=" + strconv.Itoa(article.ID),
 			IsLogin:    isLogin,
@@ -59,7 +67,7 @@ func createTagsLinks(tags string) []TagLink {
 	var tagLink []TagLink
 	tagsParam := strings.Split(tags, "&")
 	for _, tag := range tagsParam {
-		tagLink = append(tagLink, TagLink{tag, "/?tag=" + tag})
+		tagLink = append(tagLink, TagLink{tag, "/article/tags/?tag=" + tag})
 	}
 	return tagLink
 }
