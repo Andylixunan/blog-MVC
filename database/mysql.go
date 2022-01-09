@@ -54,6 +54,8 @@ func CreateTableWithArticle() {
 	ModifyDB(sql)
 }
 
+// exec modification and
+// return rows affected (error if available)
 func ModifyDB(sql string, args ...interface{}) (int64, error) {
 	result, err := db.Exec(sql, args...)
 	if err != nil {
