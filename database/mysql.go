@@ -22,9 +22,9 @@ func InitMysql() {
 		if err != nil {
 			utils.Logger.Fatal(err)
 		}
-		db.SetConnMaxIdleTime(time.Minute * 2)
-		// db.SetMaxOpenConns(10)
-		db.SetMaxIdleConns(10)
+		db.SetMaxOpenConns(25)
+		db.SetMaxIdleConns(25)
+		db.SetConnMaxLifetime(5 * time.Minute)
 		CreateTableWithUser()
 		CreateTableWithArticle()
 	}
