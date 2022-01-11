@@ -3,7 +3,6 @@ package controllers
 import (
 	"blogweb_gin/models"
 	"blogweb_gin/utils"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -13,10 +12,14 @@ import (
 
 func HomeGet(c *gin.Context) {
 	isLogin := GetSession(c)
-	page, _ := strconv.Atoi(c.Query("page"))
-	if page <= 0 {
-		page = 1
-		c.Redirect(http.StatusFound, fmt.Sprintf("/?page=%d", page))
+	pageString, ok := c.GetQuery("page")
+	if !ok {
+		c.Redirect(http.StatusFound, "/?page=1")
+		return
+	}
+	page, err := strconv.Atoi(pageString)
+	if page <= 0 || err != nil {
+		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
 	articleList, err := models.FindArticleWithPage(page)
