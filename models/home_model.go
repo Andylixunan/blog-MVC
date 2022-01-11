@@ -1,7 +1,9 @@
 package models
 
 import (
+	"blogweb_gin/database"
 	"blogweb_gin/utils"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -31,6 +33,7 @@ type TagLink struct {
 	TagUrl  string
 }
 
+// HomeFooterPageCode 用来记录分页
 type HomeFooterPageCode struct {
 	HasPre   bool
 	HasNext  bool
@@ -38,6 +41,8 @@ type HomeFooterPageCode struct {
 	PreLink  string
 	NextLink string
 }
+
+var totalArticleNumbers int
 
 //----------首页显示内容---------
 
@@ -70,4 +75,63 @@ func createTagsLinks(tags string) []TagLink {
 		tagLink = append(tagLink, TagLink{tag, "/article/tags/?tag=" + tag})
 	}
 	return tagLink
+}
+
+//-----------翻页-----------
+//page是当前的页数
+func GetHomeFooterPageCode(page int) HomeFooterPageCode {
+	pageCode := HomeFooterPageCode{}
+	totalArticleNum, err := GetTotalArticleNums()
+	if err != nil {
+		utils.Logger.Fatal(err)
+	}
+	totalPageNums := (totalArticleNum-1)/utils.ArticleDisplayNum + 1
+	pageCode.ShowPage = fmt.Sprintf("%d/%d", page, totalPageNums)
+	if page <= 1 {
+		pageCode.HasPre = false
+	} else {
+		pageCode.HasPre = true
+	}
+	if page >= totalPageNums {
+		pageCode.HasNext = false
+	} else {
+		pageCode.HasNext = true
+	}
+	if pageCode.HasPre {
+		pageCode.PreLink = fmt.Sprintf("/?page=%d", page-1)
+	}
+	if pageCode.HasNext {
+		pageCode.NextLink = fmt.Sprintf("/?page=%d", page+1)
+	}
+	return pageCode
+}
+
+func GetTotalArticleNums() (int, error) {
+	if totalArticleNumbers == 0 {
+		num, err := QueryTotalArticleNums()
+		if err != nil {
+			return 0, err
+		}
+		totalArticleNumbers = num
+	}
+	return totalArticleNumbers, nil
+}
+
+func ResetTotalArticleNums() error {
+	num, err := QueryTotalArticleNums()
+	if err != nil {
+		return err
+	}
+	totalArticleNumbers = num
+	return nil
+}
+
+func QueryTotalArticleNums() (int, error) {
+	num := 0
+	row := database.QueryRowDB("select count(id) from article")
+	err := row.Scan(&num)
+	if err != nil {
+		return 0, err
+	}
+	return num, nil
 }

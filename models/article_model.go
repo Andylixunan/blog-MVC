@@ -17,6 +17,7 @@ type Article struct {
 }
 
 func AddArticle(article Article) (int64, error) {
+	ResetTotalArticleNums()
 	return database.ModifyDB("insert into article(title,tags,short,content,author,createTime) values(?,?,?,?,?,?)",
 		article.Title, article.Tags, article.Short, article.Content, article.Author, article.CreateTime)
 }
