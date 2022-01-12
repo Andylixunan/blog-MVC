@@ -10,26 +10,33 @@ import (
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
-	//静态资源
+	// serving static files
 	router.Static("/static", "./static")
 	router.LoadHTMLGlob("views/*")
 	store := cookie.NewStore([]byte("secretKey"))
 	router.Use(sessions.Sessions("mysession", store))
-	// 注册：
+	// registration:
 	router.GET("/register", controllers.RegisterGet)
 	router.POST("/register", controllers.RegisterPost)
-	// 登陆：
+	// login:
 	router.GET("/login", controllers.LoginGet)
 	router.POST("/login", controllers.LoginPost)
-	//首页
+	// homepage:
 	router.GET("/", controllers.HomeGet)
-	//退出
+	// exit/logout:
 	router.GET("/exit", controllers.ExitGet)
 	v1 := router.Group("/article")
 	{
+		// add article:
 		v1.GET("/add", controllers.AddArticleGet)
 		v1.POST("/add", controllers.AddArticlePost)
+
+		// view article:
 		v1.GET("/show/:id", controllers.ShowArticleGet)
+
+		// update article:
+		v1.GET("/update/:id", controllers.UpdateArticleGet)
+		v1.POST("/update/:id", controllers.UpdateArticlePost)
 	}
 
 	return router
