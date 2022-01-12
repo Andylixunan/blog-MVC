@@ -16,7 +16,6 @@ func LoginGet(c *gin.Context) {
 func LoginPost(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
-	// log.Println("username:", username, ",password:", password)
 	utils.Logger.Println("username:", username, ",password:", password)
 	_, err := models.QueryUserWithParam(username, utils.MD5(password))
 	if err != nil {

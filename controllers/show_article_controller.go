@@ -25,5 +25,5 @@ func ShowArticleGet(c *gin.Context) {
 		utils.Logger.Fatalf("query articles failed --> error: %v", err)
 	}
 	article := articles[0]
-	c.HTML(http.StatusOK, "show_article.html", gin.H{"isLogin": isLogin, "Title": article.Title, "Content": article.Content})
+	c.HTML(http.StatusOK, "show_article.html", gin.H{"isLogin": isLogin, "Title": article.Title, "Content": utils.SwitchMarkdownToHTML(article.Content)})
 }

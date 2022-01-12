@@ -27,7 +27,7 @@ func AddArticle(article Article) (int64, error) {
 //根据页码查询文章
 func FindArticleWithPage(page int) ([]Article, error) {
 	page--
-	utils.Logger.Println("---------->page", page)
+	utils.Logger.Printf("viewing page: %v", page)
 	//从配置中获取每页的文章数量
 	return QueryArticleWithPage(page, utils.ArticleDisplayNum)
 }
