@@ -24,7 +24,7 @@ func AddArticlePost(c *gin.Context) {
 	tags := c.PostForm("tags")
 	short := c.PostForm("short")
 	content := c.PostForm("content")
-	utils.Logger.Printf("title:%s, tags:%s\n", title, tags)
+	utils.Logger.Printf("title: %s, tags: %s\n", title, tags)
 	article := models.Article{
 		Title:      title,
 		Tags:       tags,

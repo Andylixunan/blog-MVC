@@ -91,7 +91,7 @@ $(document).ready(function(){
     registerValidate();
     loginValidate();
     articleValidate();
-    var registerOptions = {
+    const registerOptions = {
         url: "/register",
         type: "post",
         dataType: "json",
@@ -107,7 +107,7 @@ $(document).ready(function(){
             alert("err:" + data.message + ":" + status)
         }
     }
-    var loginOptions = {
+    const loginOptions = {
         url: "/login",
         type: "post",
         dataType: "json",
@@ -123,7 +123,7 @@ $(document).ready(function(){
             alert("err:" + data.message + ":" + status)
         }
     }
-    var articleOptions = {
+    const articleOptions = {
         url: "/article/add",
         type: "post",
         dataType: "json",
@@ -138,6 +138,11 @@ $(document).ready(function(){
         error: function (data, status) {
             alert("err:" + data.message + ":" + status)
         }
+    }
+    const articleID = $("#write-article-id").val()
+    if (articleID > 0) {
+        const urlStr = "/article/update/" + articleID
+        articleOptions.url = urlStr
     }
     $('#register-form').ajaxForm(registerOptions);
     $('#login-form').ajaxForm(loginOptions);

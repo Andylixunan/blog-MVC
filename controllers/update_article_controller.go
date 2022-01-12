@@ -24,7 +24,14 @@ func UpdateArticleGet(c *gin.Context) {
 		utils.Logger.Fatalf("query articles failed --> error: %v", err)
 	}
 	article := articles[0]
-	c.HTML(http.StatusOK, "write_article.html", gin.H{"isLogin": isLogin, "Title": article.Title, "Tags": article.Tags, "Short": article.Short, "Content": article.Content, "Id": article.ID})
+	c.HTML(http.StatusOK, "write_article.html", gin.H{
+		"isLogin": isLogin,
+		"Title":   article.Title,
+		"Tags":    article.Tags,
+		"Short":   article.Short,
+		"Content": article.Content,
+		"ID":      article.ID,
+	})
 }
 
 func UpdateArticlePost(c *gin.Context) {
@@ -39,7 +46,13 @@ func UpdateArticlePost(c *gin.Context) {
 	tags := c.PostForm("tags")
 	short := c.PostForm("short")
 	content := c.PostForm("content")
-	_, err = models.UpdateArticle(models.Article{Title: title, Tags: tags, Short: short, Content: content})
+	_, err = models.UpdateArticle(models.Article{
+		ID:      id,
+		Title:   title,
+		Tags:    tags,
+		Short:   short,
+		Content: content,
+	})
 	response := gin.H{"code": 1, "message": "更新成功"}
 	if err != nil {
 		response = gin.H{"code": 0, "message": "更新失败"}
