@@ -47,7 +47,8 @@ func QueryArticleWithPage(page, num int) ([]Article, error) {
 }
 
 func QueryArticleWithCon(sql string) ([]Article, error) {
-	sql = "select id,title,tags,short,content,author,createTime from article " + sql
+	// TODO: shouldn't use concatenation for sql string
+	sql = "select id, title, tags, short, content, author, createTime from article " + sql
 	rows, err := database.QueryDB(sql)
 	if err != nil {
 		return nil, err
