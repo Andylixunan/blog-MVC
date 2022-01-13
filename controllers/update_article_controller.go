@@ -11,7 +11,7 @@ import (
 )
 
 func UpdateArticleGet(c *gin.Context) {
-	isLogin := GetSession(c)
+	isLogin := CheckLogin(c)
 	idString := c.Param("id")
 	id, err := strconv.Atoi(idString)
 	if err != nil {

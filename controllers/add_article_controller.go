@@ -10,7 +10,7 @@ import (
 )
 
 func AddArticleGet(c *gin.Context) {
-	isLogin := GetSession(c)
+	isLogin := CheckLogin(c)
 	if !isLogin {
 		c.AbortWithStatus(http.StatusForbidden)
 		return

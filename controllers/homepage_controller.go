@@ -11,7 +11,7 @@ import (
 )
 
 func HomeGet(c *gin.Context) {
-	isLogin := GetSession(c)
+	isLogin := CheckLogin(c)
 	pageString, ok := c.GetQuery("page")
 	if !ok {
 		c.Redirect(http.StatusFound, "/?page=1")
@@ -32,7 +32,7 @@ func HomeGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "home.html", gin.H{"isLogin": isLogin, "homeBlocks": homeBlocks, "PageCode": homeFooterPageCode})
 }
 
-func GetSession(c *gin.Context) bool {
+func CheckLogin(c *gin.Context) bool {
 	session := sessions.Default(c)
 	loginUser := session.Get("login_user")
 	utils.Logger.Printf("login user: %v", loginUser)
