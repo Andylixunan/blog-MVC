@@ -27,6 +27,7 @@ func InitMysql() {
 		db.SetConnMaxLifetime(5 * time.Minute)
 		CreateTableWithUser()
 		CreateTableWithArticle()
+		CreateTableWithAlbum()
 	}
 }
 
@@ -49,6 +50,18 @@ func CreateTableWithArticle() {
         tags varchar(30),
         short varchar(255),
         content longtext,
+        createTime BIGINT
+        );`
+	ModifyDB(sql)
+}
+
+//--------图片--------
+func CreateTableWithAlbum() {
+	sql := `create table if not exists album(
+        id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        filepath varchar(255),
+        filename varchar(64),
+        status INT,
         createTime BIGINT
         );`
 	ModifyDB(sql)
