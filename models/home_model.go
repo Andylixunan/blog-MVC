@@ -69,10 +69,10 @@ func MakeHomeBlocks(articles []Article, isLogin bool) []HomeBlockParam {
 
 //将tags字符串转化成首页模板所需要的数据结构
 func createTagsLinks(tags string) []TagLink {
-	var tagLink []TagLink
+	tagLink := []TagLink{}
 	tagsParam := strings.Split(tags, "&")
 	for _, tag := range tagsParam {
-		tagLink = append(tagLink, TagLink{tag, "/article/tags/?tag=" + tag})
+		tagLink = append(tagLink, TagLink{tag, "/?tag=" + tag})
 	}
 	return tagLink
 }

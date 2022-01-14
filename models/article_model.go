@@ -77,3 +77,17 @@ func DeleteArticleWithID(articleID int) (int64, error) {
 	ResetTotalArticleNums()
 	return rowsAffected, err
 }
+
+func QueryAllTags() []string {
+	rows, err := database.QueryDB("select tags from article")
+	if err != nil {
+		utils.Logger.Fatalf("querying tags failed --> err: %v", err)
+	}
+	tagList := []string{}
+	for rows.Next() {
+		tag := ""
+		rows.Scan(&tag)
+		tagList = append(tagList, tag)
+	}
+	return tagList
+}

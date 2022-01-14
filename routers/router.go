@@ -41,6 +41,8 @@ func InitRouter() *gin.Engine {
 		// delete article:
 		v1.GET("/delete/:id", controllers.DeleteArticleGet)
 	}
+	// showing tags info page
+	router.GET("/tags", controllers.TagsGet)
 
 	return router
 }
