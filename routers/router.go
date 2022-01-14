@@ -44,5 +44,11 @@ func InitRouter() *gin.Engine {
 	// showing tags info page
 	router.GET("/tags", controllers.TagsGet)
 
+	// showing album
+	router.GET("/album", controllers.AlbumGet)
+
+	// uploading picture to the album
+	router.POST("/album", controllers.AlbumPost)
+
 	return router
 }
