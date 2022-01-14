@@ -10,7 +10,7 @@ import (
 )
 
 func AddArticleGet(c *gin.Context) {
-	isLogin := CheckLogin(c)
+	_, isLogin := GetLoginUsername(c)
 	if !isLogin {
 		c.AbortWithStatus(http.StatusForbidden)
 		return
@@ -25,12 +25,13 @@ func AddArticlePost(c *gin.Context) {
 	short := c.PostForm("short")
 	content := c.PostForm("content")
 	utils.Logger.Printf("title: %s, tags: %s\n", title, tags)
+	username, _ := GetLoginUsername(c)
 	article := models.Article{
 		Title:      title,
 		Tags:       tags,
 		Short:      short,
 		Content:    content,
-		Author:     "Andy",
+		Author:     username,
 		CreateTime: time.Now().Unix(),
 	}
 	_, err := models.AddArticle(article)
