@@ -37,6 +37,9 @@ func InitRouter() *gin.Engine {
 		// update article:
 		v1.GET("/update/:id", controllers.UpdateArticleGet)
 		v1.POST("/update/:id", controllers.UpdateArticlePost)
+
+		// delete article:
+		v1.GET("/delete/:id", controllers.DeleteArticleGet)
 	}
 
 	return router

@@ -27,7 +27,6 @@ func AddArticle(article Article) (int64, error) {
 //根据页码查询文章
 func FindArticleWithPage(page int) ([]Article, error) {
 	page--
-	utils.Logger.Printf("viewing page: %v", page)
 	//从配置中获取每页的文章数量
 	return QueryArticleWithPage(page, utils.ArticleDisplayNum)
 }
@@ -71,4 +70,10 @@ func QueryArticleWithCon(sql string) ([]Article, error) {
 func UpdateArticle(article Article) (int64, error) {
 	return database.ModifyDB("update article set title=?, tags=?, short=?, content=? where id=?",
 		article.Title, article.Tags, article.Short, article.Content, article.ID)
+}
+
+func DeleteArticleWithID(articleID int) (int64, error) {
+	rowsAffected, err := database.ModifyDB("delete from article where id=?", articleID)
+	ResetTotalArticleNums()
+	return rowsAffected, err
 }
