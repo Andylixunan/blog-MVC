@@ -12,24 +12,51 @@ import (
 
 func HomeGet(c *gin.Context) {
 	_, isLogin := GetLoginUsername(c)
-	pageString, ok := c.GetQuery("page")
-	if !ok {
+	pageString, pageExists := c.GetQuery("page")
+	tag, tagExists := c.GetQuery("tag")
+	if !pageExists && !tagExists {
 		c.Redirect(http.StatusFound, "/?page=1")
 		return
 	}
-	page, err := strconv.Atoi(pageString)
-	if page <= 0 || err != nil {
+	if pageExists && tagExists {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
-	articleList, err := models.FindArticleWithPage(page)
-	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
-		return
+	var (
+		page        int
+		articleList []models.Article
+		err         error
+		hasFooter   bool
+	)
+	if pageExists {
+		page, err = strconv.Atoi(pageString)
+		if page <= 0 || err != nil {
+			c.AbortWithStatus(http.StatusBadRequest)
+			return
+		}
+		articleList, err = models.FindArticleWithPage(page)
+		if err != nil {
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+		hasFooter = true
+	}
+	if tagExists {
+		articleList, err = models.FindArticleWithTag(tag)
+		if err != nil {
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+		hasFooter = false
 	}
 	homeBlocks := models.MakeHomeBlocks(articleList, isLogin)
 	homeFooterPageCode := models.GetHomeFooterPageCode(page)
-	c.HTML(http.StatusOK, "home.html", gin.H{"isLogin": isLogin, "homeBlocks": homeBlocks, "PageCode": homeFooterPageCode})
+	c.HTML(http.StatusOK, "home.html", gin.H{
+		"isLogin":    isLogin,
+		"homeBlocks": homeBlocks,
+		"PageCode":   homeFooterPageCode,
+		"HasFooter":  hasFooter,
+	})
 }
 
 func GetLoginUsername(c *gin.Context) (string, bool) {
