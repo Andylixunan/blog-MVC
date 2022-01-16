@@ -120,8 +120,8 @@ body{
 .album-item{
     border: 1px solid #72BCB5;
     display: inline-block;
-    width: 400px;
-    height: 450px;
+    width: 600px;
+    height: 700px;
     margin: 10px 10px;
     /*background-repeat: no-repeat;*/
     background-size: cover;
