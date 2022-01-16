@@ -19,6 +19,11 @@
         <p>
             仅支持图片文件: jpg, jpeg, png
         </p>
+        <div id="album-box">
+            {{range .Image}}
+                <div class="album-item" style='background-image: url("{{.FilePath}}");'></div>
+            {{end}}
+        </div>
     </div>
 </body>
 </html>
