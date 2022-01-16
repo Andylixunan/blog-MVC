@@ -15,4 +15,5 @@ func AlbumGet(c *gin.Context) {
 
 func AlbumPost(c *gin.Context) {
 	utils.Logger.Println("start uploading file")
+	c.JSON(http.StatusOK, gin.H{"code": 0, "message": new(error)})
 }

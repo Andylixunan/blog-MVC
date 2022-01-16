@@ -87,6 +87,36 @@ function articleValidate(){
     })
 }
 
+function uploadFile(){
+    const filedata = $("#album-upload-file").val();
+    if (filedata.length <= 0) {
+        alert("请选择文件!");
+        return
+    }
+    const formdata = new FormData()
+    formdata.append("upload", $("#album-upload-file")[0].files[0]) // formdata stores form data in key-value pairs
+    const uploadOptions = {
+        url: "/album",
+        type: "POST",
+        data: formdata,
+        processData: false,
+        contentType: false,
+        dataType: "json", // the server response data type
+        success: function(data) {
+            alert("data:" + data.message + " code:" + data.code)
+            if (data.code == 1) {
+                setTimeout(function () {
+                    window.location.href = "/album"
+                }, 1000)
+            }
+        },
+        error: function (data, status) {
+            alert("err:" + data.message + ":" + status)
+        }
+    }
+    $.ajax(uploadOptions)
+}
+
 $(document).ready(function(){
     registerValidate();
     loginValidate();
@@ -147,5 +177,6 @@ $(document).ready(function(){
     $('#register-form').ajaxForm(registerOptions);
     $('#login-form').ajaxForm(loginOptions);
     $('#write-art-form').ajaxForm(articleOptions);
+    $('#album-upload-button').click(uploadFile)
 }
 );

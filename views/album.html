@@ -12,10 +12,13 @@
 <body>
     {{template "nav.html" .}}
     <div id="main">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="upload-form">
             <input type="file" id="album-upload-file" name="upload">
             <input type="button" id="album-upload-button" value="提交文件">
         </form>
+        <p>
+            仅支持图片文件: jpg, jpeg, png
+        </p>
     </div>
 </body>
 </html>
