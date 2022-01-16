@@ -117,14 +117,13 @@ body{
     height: 1000px;
     font-size: 0px;
 }
-.album-item{
-    display: inline-block;
-    width: 1000px;
-    height: 700px;
-    margin: auto, auto;
-    background-size: cover;
-}
 
+.image-item{
+    display: inline-block;
+    width: 800px;
+    height: 550px;
+    margin: auto, auto;
+}
 /*关于我--------------*/
 #aboutme{
     margin: 60px auto;

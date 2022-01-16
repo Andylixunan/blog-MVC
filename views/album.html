@@ -12,6 +12,7 @@
 <body>
     {{template "nav.html" .}}
     <div id="main">
+        {{if .isLogin}}
         <form method="post" enctype="multipart/form-data" id="upload-form">
             <input type="file" id="album-upload-file" name="upload">
             <input type="button" id="album-upload-button" value="提交文件">
@@ -19,9 +20,10 @@
         <p>
             仅支持图片文件: jpg, jpeg, png
         </p>
+        {{end}}
         <div id="album-box">
             {{range .Image}}
-                <div class="album-item" style='background-image: url("{{.FilePath}}");'></div>
+                <img src="{{.FilePath}}" class="image-item">
             {{end}}
         </div>
     </div>
