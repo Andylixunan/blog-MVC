@@ -124,13 +124,13 @@ body{
     height: 550px;
     margin: auto, auto;
 }
+
 /*关于我--------------*/
 #aboutme{
     margin: 60px auto;
     width: 900px;
     height: 640px;
     font-size: 0px;
-    /*position: relative;*/
 }
 
 

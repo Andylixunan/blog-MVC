@@ -50,5 +50,7 @@ func InitRouter() *gin.Engine {
 	// uploading picture to the album
 	router.POST("/album", controllers.AlbumPost)
 
+	router.GET("/aboutme", controllers.AboutMeGet)
+
 	return router
 }
