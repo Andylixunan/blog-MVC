@@ -118,12 +118,10 @@ body{
     font-size: 0px;
 }
 .album-item{
-    border: 1px solid #72BCB5;
     display: inline-block;
-    width: 600px;
+    width: 1000px;
     height: 700px;
-    margin: 10px 10px;
-    /*background-repeat: no-repeat;*/
+    margin: auto, auto;
     background-size: cover;
 }
 
